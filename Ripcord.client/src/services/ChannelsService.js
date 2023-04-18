@@ -42,7 +42,7 @@ class ChannelsService {
   async create(channelBody) {
     const res = await api.post("api/channels", channelBody);
     // NOTE COMMENTED OUT FOR WEB SOCKETS.. DON"T NEED
-    // AppState.channels.push(new Channel(res.data));
+    AppState.channels.push(new Channel(res.data));
   }
 
   async edit(channelBody) {

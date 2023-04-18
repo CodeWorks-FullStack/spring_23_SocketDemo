@@ -57,39 +57,39 @@ export default {
 
     watchEffect(() => {
       route.params.id
-      joinRoom()
+      // joinRoom()
       getMessages()
       getChannel()
       getChannels()
     })
 
-    router.beforeEach((to, from) => {
-      if (from.name == "Channel") {
-        leaveRoom(from.params.id)
-      }
-      logger.log('TO:', to.params.id)
-      logger.log('FROM:', from)
-    })
-    function joinRoom() {
-      try {
-        // SENDING MESSAGE TO SERVER
-        let payload = { roomName: route.params.id }
-        socketService.emit('joining:room', payload)
-      } catch (error) {
-        logger.error('[ERROR]', error)
-        Pop.error(('[ERROR]'), error.message)
-      }
-    }
+    // router.beforeEach((to, from) => {
+    //   if (from.name == "Channel") {
+    //     leaveRoom(from.params.id)
+    //   }
+    //   logger.log('TO:', to.params.id)
+    //   logger.log('FROM:', from)
+    // })
+    // function joinRoom() {
+    //   try {
+    //     // SENDING MESSAGE TO SERVER
+    //     let payload = { roomName: route.params.id }
+    //     socketService.emit('joining:room', payload)
+    //   } catch (error) {
+    //     logger.error('[ERROR]', error)
+    //     Pop.error(('[ERROR]'), error.message)
+    //   }
+    // }
 
-    function leaveRoom(id) {
-      try {
-        let payload = { roomName: id }
-        socketService.emit('leaving:room', payload)
-      } catch (error) {
-        logger.error('[ERROR]', error)
-        Pop.error(('[ERROR]'), error.message)
-      }
-    }
+    // function leaveRoom(id) {
+    //   try {
+    //     let payload = { roomName: id }
+    //     socketService.emit('leaving:room', payload)
+    //   } catch (error) {
+    //     logger.error('[ERROR]', error)
+    //     Pop.error(('[ERROR]'), error.message)
+    //   }
+    // }
 
     async function getChannels() {
       try {
