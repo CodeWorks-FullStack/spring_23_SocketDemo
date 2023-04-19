@@ -18,14 +18,14 @@ class ChannelsService {
     AppState.channel = new Channel(res.data);
     AppState.editChannel = new Channel(res.data);
     // await this.getRooms(serverId);
-    await this.getUsers(serverId);
+    // await this.getUsers(serverId);
   }
 
-  async getUsers(channelId) {
-    const res = await api.get(`api/channels/${channelId}/users`);
-    logger.log("[GETTING ROOMS USERS]", res.data);
-    AppState.users = res.data.map((u) => new User(u));
-  }
+  // async getUsers(channelId) {
+  //   const res = await api.get(`api/channels/${channelId}/users`);
+  //   logger.log("[GETTING ROOMS USERS]", res.data);
+  //   AppState.users = res.data.map((u) => new User(u));
+  // }
 
   async getMessages() {
     const res = await api.get("api/channels/64359c414dc0b5da04e9666e/messages");
@@ -42,7 +42,7 @@ class ChannelsService {
   async create(channelBody) {
     const res = await api.post("api/channels", channelBody);
     // NOTE COMMENTED OUT FOR WEB SOCKETS.. DON"T NEED
-    AppState.channels.push(new Channel(res.data));
+    // AppState.channels.push(new Channel(res.data));
   }
 
   async edit(channelBody) {

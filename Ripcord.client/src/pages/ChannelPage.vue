@@ -49,6 +49,7 @@ import RoomForm from "../components/Forms/RoomForm.vue";
 import { useRoute, useRouter } from "vue-router";
 import { roomsService } from "../services/RoomsService";
 import { socketService } from "../services/SocketService"
+import { adsService } from "../services/AdsService";
 
 export default {
   setup() {
@@ -57,39 +58,40 @@ export default {
 
     watchEffect(() => {
       route.params.id
-      // joinRoom()
-      getMessages()
+      joinRoom()
       getChannel()
+      getMessages()
       getChannels()
+      getAds()
     })
 
-    // router.beforeEach((to, from) => {
-    //   if (from.name == "Channel") {
-    //     leaveRoom(from.params.id)
-    //   }
-    //   logger.log('TO:', to.params.id)
-    //   logger.log('FROM:', from)
-    // })
-    // function joinRoom() {
-    //   try {
-    //     // SENDING MESSAGE TO SERVER
-    //     let payload = { roomName: route.params.id }
-    //     socketService.emit('joining:room', payload)
-    //   } catch (error) {
-    //     logger.error('[ERROR]', error)
-    //     Pop.error(('[ERROR]'), error.message)
-    //   }
-    // }
+    router.beforeEach((to, from) => {
+      if (from.name == "Channel") {
+        leaveRoom(from.params.id)
+      }
+      logger.log('TO:', to.params.id)
+      logger.log('FROM:', from)
+    })
+    function joinRoom() {
+      try {
+        // SENDING MESSAGE TO SERVER
+        let payload = { roomName: route.params.id }
+        socketService.emit('c:joining:room', payload)
+      } catch (error) {
+        logger.error('[ERROR]', error)
+        Pop.error(('[ERROR]'), error.message)
+      }
+    }
 
-    // function leaveRoom(id) {
-    //   try {
-    //     let payload = { roomName: id }
-    //     socketService.emit('leaving:room', payload)
-    //   } catch (error) {
-    //     logger.error('[ERROR]', error)
-    //     Pop.error(('[ERROR]'), error.message)
-    //   }
-    // }
+    function leaveRoom(id) {
+      try {
+        let payload = { roomName: id }
+        socketService.emit('c:leaving:room', payload)
+      } catch (error) {
+        logger.error('[ERROR]', error)
+        Pop.error(('[ERROR]'), error.message)
+      }
+    }
 
     async function getChannels() {
       try {
@@ -115,6 +117,15 @@ export default {
       try {
         let roomId = route.params.id
         await roomsService.getMessages(roomId)
+      } catch (error) {
+        logger.error('[ERROR]', error)
+        Pop.error(('[ERROR]'), error.message)
+      }
+    }
+
+    async function getAds() {
+      try {
+        await adsService.getAds()
       } catch (error) {
         logger.error('[ERROR]', error)
         Pop.error(('[ERROR]'), error.message)

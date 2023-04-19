@@ -1,7 +1,6 @@
-import { socketProvider } from "../SocketProvider"
 import { SocketHandler } from '../utils/SocketHandler'
 
-export class TestHandler extends SocketHandler {
+export class RoomHandler extends SocketHandler {
   /**
    * @param {import("socket.io").Server} io
    * @param {import("socket.io").Socket} socket
@@ -10,8 +9,8 @@ export class TestHandler extends SocketHandler {
     super(io, socket)
     this
       .on('SOCKET_TEST', this.testEvent)
-      .on('joining:room', this.joinRoom)
-      .on('leaving:room', this.leavingRoom)
+      .on('c:joining:room', this.joinRoom)
+      .on('c:leaving:room', this.leavingRoom)
   }
 
   async testEvent(payload) {
@@ -24,7 +23,7 @@ export class TestHandler extends SocketHandler {
       return
     }
     this.socket.join(payload.roomName)
-    socketProvider.messageRoom(payload.roomName, 'joined:room', this.user)
+    this.io.to(payload.roomName).emit('s:joined:room', this.user)
   }
 
   leavingRoom(payload) {
@@ -33,7 +32,7 @@ export class TestHandler extends SocketHandler {
       return
     }
     this.socket.leave(payload.roomName)
-    socketProvider.messageRoom(payload.roomName, 'left:room', this.user)
+    this.io.to(payload.roomName).emit('s:left:room', this.user)
   }
 
 }

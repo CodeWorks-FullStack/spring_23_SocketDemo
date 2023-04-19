@@ -29,6 +29,9 @@ export class MessagesController extends BaseController{
       let messageBody = req.body
       messageBody.creatorId = req.userInfo.id
       let message = await messagesService.create(messageBody)
+      socketProvider.messageRoom(message.roomId.toString(), 's:created:message', message)
+      // @ts-ignore
+      socketProvider.messageUser(message.channel.creatorId.toString(), "s:created:messageCreator", message)
       return res.send(message)
     } catch (error) {
       next(error)

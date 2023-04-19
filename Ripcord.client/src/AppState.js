@@ -17,10 +17,11 @@ export const AppState = reactive({
   room: null,
   /** @type {import('./models/Message.js').Message[]} */
   messages: [],
-  /** @type {import('./models/User.js').User[]} */
+  /** @type {import('./models/NewUser.js').NewUser[]} */
   users: [],
   /** @type {import('./models/Friend.js').Friend[]} */
   friends: [],
   /** @type {import('./models/Friend.js').Friend||null} */
   friend: null,
+  ads: [],
 });
