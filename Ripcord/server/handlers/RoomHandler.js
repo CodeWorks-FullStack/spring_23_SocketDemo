@@ -9,7 +9,7 @@ export class RoomHandler extends SocketHandler {
     super(io, socket)
     this
       .on('SOCKET_TEST', this.testEvent)
-      .on('c:joining:room', this.joinRoom)
+      .on('c:joining:room', this.joiningRoom)
       .on('c:leaving:room', this.leavingRoom)
   }
 
@@ -17,9 +17,9 @@ export class RoomHandler extends SocketHandler {
     this.socket.emit('IS_TESTED', payload)
   }
 
-  joinRoom(payload) {
+  joiningRoom(payload) {
     if(!payload.roomName) {
-      this.socket.emit('error', {error: 'Please provide a room name.'})
+      this.socket.emit("error", {error: 'Please provide a room name.'})
       return
     }
     this.socket.join(payload.roomName)
@@ -28,11 +28,11 @@ export class RoomHandler extends SocketHandler {
 
   leavingRoom(payload) {
     if(!payload.roomName) {
-      this.socket.emit('error', {error: 'Please provide a room name.'})
+      this.socket.emit("error", {error: "Something went wrong with teh payload."})
       return
     }
     this.socket.leave(payload.roomName)
-    this.io.to(payload.roomName).emit('s:left:room', this.user)
+    this.io.to(payload.roomName).emit("s:leaving:room", this.user)
   }
 
 }

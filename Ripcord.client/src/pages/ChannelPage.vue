@@ -2,13 +2,13 @@
   <section class="container-fluid bigHeight">
     <div class="row">
       <!-- SECTION CHANNEL LIST -->
-      <ChannelList />
+      <ChannelList class="order-1 order-md-1" />
       <!-- SECTION FRIENDS/ROOMS LIST -->
-      <FriendRoomList />
+      <FriendRoomList class="order-2 order-md-2" />
       <!-- SECTION CHAT -->
-      <ChatRoom />
+      <ChatRoom class="order-4 order-md-3" />
       <!-- SECTION WHO'S ONLINE -->
-      <WhoIsOnline />
+      <WhoIsOnline class="order-3 order-md-4" />
     </div>
   </section>
 
@@ -69,14 +69,12 @@ export default {
       if (from.name == "Channel") {
         leaveRoom(from.params.id)
       }
-      logger.log('TO:', to.params.id)
-      logger.log('FROM:', from)
     })
+
     function joinRoom() {
       try {
-        // SENDING MESSAGE TO SERVER
         let payload = { roomName: route.params.id }
-        socketService.emit('c:joining:room', payload)
+        socketService.emit("c:joining:room", payload)
       } catch (error) {
         logger.error('[ERROR]', error)
         Pop.error(('[ERROR]'), error.message)
@@ -86,7 +84,7 @@ export default {
     function leaveRoom(id) {
       try {
         let payload = { roomName: id }
-        socketService.emit('c:leaving:room', payload)
+        socketService.emit("c:leaving:room", payload)
       } catch (error) {
         logger.error('[ERROR]', error)
         Pop.error(('[ERROR]'), error.message)

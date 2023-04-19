@@ -43,7 +43,7 @@ export class ChannelsController extends BaseController{
       let channelBody = req.body
       channelBody.creatorId = req.userInfo.id
       let channel = await channelsService.create(channelBody)
-      socketProvider.message('s:created:channel', channel)
+      socketProvider.message("s:created:channel", channel)
       return res.send(channel)
     } catch (error) {
       next(error)

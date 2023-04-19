@@ -1,6 +1,6 @@
 <template>
   <!-- SECTION FRIENDS -->
-  <div class="col-md-2 bgPrimary bigHeight">
+  <div class="d-none d-md-block col-md-2 bgPrimary bigHeight">
     <div class="row topChat border-bottom align-items-center">
       <div class=" col-12">
         <h5 class="m-0">Friends </h5>

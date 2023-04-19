@@ -1,10 +1,13 @@
 <template>
-  <div class="col-md-3 bgLight">
+  <div class=" col-md-3 bgLight">
     <div class="row ">
       <div class="col-12" v-for="a in ads" :key="a.id">
         <div class="row justify-content-center">
-          <div class="col-8 mt-4">
+          <div class="d-none d-md-block col-8 mt-4">
             <img class="img-fluid" :src=a.tall alt="">
+          </div>
+          <div class="d-block d-md-none col-8 my-2">
+            <img class="img-fluid" :src=a.banner alt="">
           </div>
         </div>
       </div>

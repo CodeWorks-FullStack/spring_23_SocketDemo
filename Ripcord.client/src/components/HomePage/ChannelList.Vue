@@ -1,13 +1,13 @@
 <template>
   <div class="col-md-1 bgDark bigHeight">
     <div class="row border-bottom topList">
-      <div class="col-12 text-center my-2">
+      <div class="col-3 col-md-12 text-center my-2">
         <img @click="pushToHome()" class="my-1 channelImage selectable" src="src\assets\img\Group 1.png" title="Ripcord"
           alt="Channel Image" srcset="">
       </div>
     </div>
     <div class="row middleList verticalScroll">
-      <div class="col-12 text-center mt-2" v-for="c in channels" :key="c.id">
+      <div class="col-3 col-md-12 text-center mt-2" v-for="c in channels" :key="c.id">
         <ServerList :server="c" />
       </div>
     </div>
