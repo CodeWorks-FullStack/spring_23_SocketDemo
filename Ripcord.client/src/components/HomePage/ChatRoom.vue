@@ -40,9 +40,8 @@ import { AppState } from "../../AppState";
 import { logger } from "../../utils/Logger";
 import Pop from "../../utils/Pop";
 import { messagesService } from "../../services/MessagesService";
-import { socketService } from "../../services/SocketService";
 import { useRoute } from "vue-router";
-import { roomsService } from "../../services/RoomsService";
+
 
 
 export default {

@@ -2,8 +2,6 @@ import { applyStyles } from "@popperjs/core";
 import { AppState } from "../AppState";
 import { Channel } from "../models/Channel";
 import { Message } from "../models/Message";
-import { NewUser } from "../models/NewUser";
-import { User } from "../models/User";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { SocketHandler } from "../utils/SocketHandler";

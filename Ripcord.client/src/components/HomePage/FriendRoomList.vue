@@ -72,11 +72,10 @@ import { computed } from "vue";
 import { AppState } from "../../AppState";
 import { logger } from "../../utils/Logger";
 import Pop from "../../utils/Pop";
-import { roomsService } from "../../services/RoomsService";
-import { friendsService } from "../../services/FriendsService"
 import Login from "../../components/Login.vue"
 import { channelsService } from "../../services/ChannelsService";
 import { useRouter } from "vue-router";
+import { roomsService } from "../../services/RoomsService";
 
 
 export default {
@@ -92,15 +91,6 @@ export default {
         try {
           await roomsService.setActiveRoom(roomId);
           router.push({ name: "Room", params: { id: roomId } })
-        }
-        catch (error) {
-          logger.error("[ERROR]", error);
-          Pop.error(("[ERROR]"), error.message);
-        }
-      },
-      async setActiveFriend(friendId) {
-        try {
-          await friendsService.setActiveFriend(friendId);
         }
         catch (error) {
           logger.error("[ERROR]", error);
