@@ -10,8 +10,6 @@ export class ChannelsController extends BaseController{
     this.router
     .get("", this.getAll)
     .get("/:id", this.getOne)
-    // .get("/:id/messages", this.getMessages)
-    .get("/:id/users", this.getUsers)
     .get("/:id/rooms", this.getRooms)
     .use(Auth0Provider.getAuthorizedUserInfo)
     .post("", this.create)
@@ -68,18 +66,6 @@ export class ChannelsController extends BaseController{
       let channelId = req.params.id
       let message = await channelsService.delete(channelId, creatorId)
       return res.send(message)
-    } catch (error) {
-      next(error)
-    }
-  }
-
-  // SECTION USERS
-
-  async getUsers(req,res, next) {
-    try {
-      let channelId = req.params.id
-      let users = await channelsService.getUsers(channelId)
-      return res.send(users)
     } catch (error) {
       next(error)
     }

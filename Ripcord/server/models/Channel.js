@@ -13,11 +13,4 @@ ChannelSchema.virtual("creator", {
   foreignField: "_id",
   ref: "Account",
   justOne: true
-}),
-
-ChannelSchema.virtual("userCount", {
-  localField: "_id",
-  foreignField: "channelId",
-  count: true,
-  ref: "User"
 })

@@ -1,18 +1,17 @@
 import { dbContext } from "../db/DbContext";
 import { BadRequest, Forbidden } from "../utils/Errors";
 import {roomsService} from "../services/RoomsService"
-import { usersService } from "./UsersService";
 
 class ChannelsService{
 
   async getAll() {
-    let channels = await dbContext.Channels.find().populate("userCount creator", 'name picture')
+    let channels = await dbContext.Channels.find().populate("creator", 'name picture')
     return channels
   }
 
   // GET BY ID
   async getOne(channelId) {
-    let channel = await dbContext.Channels.findById(channelId).populate("userCount creator", 'name picture')
+    let channel = await dbContext.Channels.findById(channelId).populate("creator", 'name picture')
     if(channel == null) {
       throw new BadRequest('There is no channel with that Id.')
     }
@@ -22,17 +21,12 @@ class ChannelsService{
   // CREATE
   async create(channelBody) {
     let channel = await dbContext.Channels.create(channelBody)
-    await channel.populate("userCount")
     await channel.populate("creator", 'name, picture')
     let roomData = {}
     roomData.channelId = channel.id
     roomData.creatorId = channelBody.creatorId
     roomData.title = `Welcome to ${channel.name}`
     await roomsService.create(roomData)
-    let userBody = {}
-    userBody.creatorId = channel.creatorId
-    userBody.channelId = channel.id
-    await usersService.create(userBody)
     return channel
   }
 
@@ -59,13 +53,6 @@ class ChannelsService{
     return `Channel: ${channel.name} has been successfully removed.`
   }
 
-  // SECTION USERS
-  async getUsers(channelId) {
-    let users = await dbContext.Users.find({channelId})
-    .populate("creator", 'picture name')
-    .populate("channel", 'name description creatorId')
-    return users
-  }
 
   // SECTION MESSAGES
   async getMessages(channelId) {
